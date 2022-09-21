@@ -86,7 +86,6 @@ public class Assignment1 : ProcessingLite.GP21
 
             Vector3 diff2 = (pos3.position - pos2.position) / Strokes;
 
-
             Vector2 startPos = pos1.position + diff1 * i;
 
             Vector2 endPos = pos2.position + diff2 * i;
