@@ -23,9 +23,11 @@ public class ImputMovement : MonoBehaviour
         float xMove = Input.GetAxis("Horizontal");
         float yMove = Input.GetAxis("Vertical");
 
-        Vector3 move = new Vector2(xMove, yMove).normalized;
+        Vector2 rawMove = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        if (move.magnitude != 0)
+        Vector2 move = new Vector2(xMove, yMove).normalized;
+
+        if (rawMove.magnitude != 0)
         {
             lastInputDir = move;
         }
@@ -34,12 +36,12 @@ public class ImputMovement : MonoBehaviour
             currentSpeed = 0;
 
 
-        if (move.magnitude == 0 && currentSpeed > 0)
+        if (rawMove.magnitude == 0 && currentSpeed > 0)
         {
 
             currentSpeed -= deceleration * Time.deltaTime;
         }
-        else if (move.magnitude != 0)
+        else if (rawMove.magnitude != 0)
         {
             currentSpeed += acceleration * Time.deltaTime;
         }
