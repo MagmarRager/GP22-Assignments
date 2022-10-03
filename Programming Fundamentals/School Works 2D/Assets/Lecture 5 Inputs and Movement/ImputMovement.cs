@@ -8,48 +8,53 @@ public class ImputMovement : MonoBehaviour
 
     // NOTE:
     //      THE SCRIPT IS USED IN "Lecture 2" sampleScene!!!
+    //      ALSO THIS SCRIPT IS OUTDATED UPDATED VERSION IS IN 
 
     [Header("Variables")]
     public float maxSpeed;
     public float acceleration = 1.5f;
     public float deceleration = 1.5f;
     [SerializeField]
-    private float currentSpeed;
+    private float velocity;
 
+    [SerializeField]
     Vector3 lastInputDir;
+
 
     private void Update()
     {
-        float xMove = Input.GetAxis("Horizontal");
-        float yMove = Input.GetAxis("Vertical");
+  
 
         Vector2 rawMove = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        Vector2 move = new Vector2(xMove, yMove).normalized;
+        Vector2 move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
         if (rawMove.magnitude != 0)
         {
             lastInputDir = move;
         }
 
-        if (currentSpeed < 0)
-            currentSpeed = 0;
 
 
-        if (rawMove.magnitude == 0 && currentSpeed > 0)
+
+        if (rawMove.magnitude == 0)
         {
-
-            currentSpeed -= deceleration * Time.deltaTime;
+            velocity -= deceleration * Time.deltaTime;
         }
         else if (rawMove.magnitude != 0)
         {
-            currentSpeed += acceleration * Time.deltaTime;
+            velocity += acceleration * Time.deltaTime;
         }
 
-        if (currentSpeed > maxSpeed)
-            currentSpeed = maxSpeed;
+        if (velocity < 0)
+            velocity = 0;
 
-        transform.position += lastInputDir * currentSpeed * Time.deltaTime;
+        if (velocity > maxSpeed)
+            velocity = maxSpeed;
+
+        transform.position += lastInputDir * velocity * Time.deltaTime;
+
+
 
         Debug.Log(move.magnitude);
     }
