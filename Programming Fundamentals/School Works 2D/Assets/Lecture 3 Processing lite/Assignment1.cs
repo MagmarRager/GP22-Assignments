@@ -33,15 +33,22 @@ public class Assignment1 : ProcessingLite.GP21
 
     void Update()
     {
-        xA = APos.position.x;
-        yA = APos.position.y;
-
-        xT = TPos.position.x;
-        yT = TPos.position.y;
-        Background(0); //Clears the background and sets the color to 0.
+        Background(0);
 
         Stroke(255);
         StrokeWeight(strokeWeight);
+
+        DrawParable();
+
+        DrawInitials();
+    }
+
+    void DrawInitials()
+    {
+
+
+
+        //Draws a "A"
         BeginShape();
         Vertex(-1f + xA, 0 + yA);
         Vertex(-1.5f + xA, 0 + yA);
@@ -53,6 +60,7 @@ public class Assignment1 : ProcessingLite.GP21
         Vertex(-1f + xA, 2.3f + yA);
         EndShape(true);
 
+        //Draws a "T"
         BeginShape();
         Vertex(-1f + xT, 1.4f + yT);
         Vertex(2.5f + xT, 1.4f + yT);
@@ -65,12 +73,31 @@ public class Assignment1 : ProcessingLite.GP21
         EndShape(true);
 
 
+        //Specific positions to draw boxes to make a fusing effect when the text is over one another
+        xA = APos.position.x;
+        yA = APos.position.y;
+
+        xT = TPos.position.x;
+        yT = TPos.position.y;
+
+        float boxSize = 0.25f;
+        Square(0.9f + xA, boxSize / 2 + strokeWeight / 10 / 2 + yA, boxSize);
+
+        NoStroke();
+        float strokeOffset = strokeWeight / 10 / 2;
+        //Right Blocker
+        Rect(0 + xA + strokeOffset, 3 + yA - strokeOffset, 0.5f + xA - strokeOffset, 0 + yA + strokeOffset);
+        //Left Blocker
+        Rect(-1.5f + xA + strokeOffset, 3 + yA - strokeOffset, -1f + xA - strokeOffset, 0 + yA + strokeOffset);
 
 
+        // T Mid Blocker
+        Rect(-1f + strokeWeight / 10 + xT, 1.4f + yT - strokeOffset, 2.5f + xT - strokeOffset, 0.9f + yT + strokeOffset);
 
+    }
 
-
-
+    void DrawParable()
+    {
         //Parable down below
         for (int i = 0; i < Strokes + 1; i++)
         {
@@ -118,30 +145,7 @@ public class Assignment1 : ProcessingLite.GP21
 
             Line(startPos.x, startPos.y, endPos.x, endPos.y);
         }
-
-
-
-
-
-
-
-
-        float boxSize = 0.25f;
-        Square(0.9f + xA, boxSize / 2 + strokeWeight / 10 / 2 + yA, boxSize);
-
-        NoStroke();
-
-        float strokeOffset = strokeWeight / 10 / 2;
-        //Right Blocker
-        Rect(0 + xA + strokeOffset, 3 + yA - strokeOffset, 0.5f + xA - strokeOffset, 0 + yA + strokeOffset);
-        //Left Blocker
-        Rect(-1.5f + xA + strokeOffset, 3 + yA - strokeOffset, -1f + xA - strokeOffset, 0 + yA + strokeOffset);
-
-
-        // T Mid Blocker
-        Rect(-1f + strokeWeight / 10 + xT, 1.4f + yT - strokeOffset, 2.5f + xT - strokeOffset, 0.9f + yT + strokeOffset);
-
-
-
     }
+
+
 }
