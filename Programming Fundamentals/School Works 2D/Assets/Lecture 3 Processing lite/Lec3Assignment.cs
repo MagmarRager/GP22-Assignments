@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Assignment1 : ProcessingLite.GP21
+public class Lec3Assignment : ProcessingLite.GP21
 {
     public Transform APos;
     private float xA;

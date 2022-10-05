@@ -5,20 +5,16 @@ using UnityEngine.UIElements;
 
 public class Lec4Assignment : ProcessingLite.GP21
 {
+    public float velocityMagnitude;
 
     public float circleRadius;
-    public float speed = 1;
+    public float speedMultiplyer = 1;
+    public float maxDragSpeed = 10;
 
     public Vector2 CirclePosition;
-    private Vector2 direction;
-
-    [SerializeField]
+    private Vector2 velocity;
     private Vector2 circleCameraPos;
 
-
-    private float circleRadiusInCamera;
-
-    // Update is called once per frame
     void Update()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -32,31 +28,30 @@ public class Lec4Assignment : ProcessingLite.GP21
 
         if (Input.GetMouseButtonDown(0))
         {
-            //CirclePosition = mousePos;
-
+            velocity = Vector2.zero;
+            CirclePosition = mousePos;
+        }
+        if(Input.GetMouseButton(0))
+        {
             Line(CirclePosition.x, CirclePosition.y, mousePos.x, mousePos.y);
-
-            direction = mousePos - CirclePosition;
-
+            //Simply for insperctor veiwing
+            velocityMagnitude = Vector2.ClampMagnitude(mousePos - CirclePosition, maxDragSpeed).magnitude;
         }
-
-
-        if ((circleCameraPos.x > 1 && direction.x > 0) || (circleCameraPos.x < 0 && direction.x < 0))
+        if(Input.GetMouseButtonUp(0))
         {
-            direction.x *= -1;
+            velocity = mousePos - CirclePosition;
         }
-        if ((circleCameraPos.y > 1 && direction.y > 0 )|| (circleCameraPos.y < 0 && direction.y < 0))
+
+        // Checking velocity is a BUGFIX, if not there, theres chance for ball getting stuck outside due to multiplying * -1 every frame! 
+        if ((circleCameraPos.x > 1 && velocity.x > 0) || (circleCameraPos.x < 0 && velocity.x < 0))
         {
-            direction.y *= -1;
+            velocity.x *= -1;
+        }
+        if ((circleCameraPos.y > 1 && velocity.y > 0 )|| (circleCameraPos.y < 0 && velocity.y < 0))
+        {
+            velocity.y *= -1;
         }
 
-
-        CirclePosition += direction * Time.deltaTime * speed;
-
-
-
-
-
-
+        CirclePosition += Vector2.ClampMagnitude(velocity, maxDragSpeed) * Time.deltaTime * speedMultiplyer;
     }
 }
