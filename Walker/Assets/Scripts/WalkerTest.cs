@@ -16,7 +16,7 @@ public class WalkerTest : ProcessingLite.GP21
         QualitySettings.vSyncCount = 0;
 
         //Create a walker from the class Example it has the type of WalkerInterface
-        walker = new AjdinsWalkerTalker();
+        walker = new AjdTal();
 
         //Get the start position for our walker.
         walkerPos = walker.GetStartPosition((int)(Width / scaleFactor), (int)(Height / scaleFactor));
