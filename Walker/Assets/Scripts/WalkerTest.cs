@@ -18,8 +18,8 @@ public class WalkerTest : ProcessingLite.GP21
         //Create a walker from the class Example it has the type of WalkerInterface
         walker = new AjdTal();
 
-        //Get the start position for our walker.
-        walkerPos = walker.GetStartPosition((int)(Width / scaleFactor), (int)(Height / scaleFactor));
+		//Get the start position for our walker.
+		walkerPos = walker.GetStartPosition((int)(Width / scaleFactor), (int)(Height / scaleFactor));
     }
 
     void Update()
